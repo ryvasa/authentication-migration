@@ -1,0 +1,55 @@
+GET http://localhost:5000
+
+###
+POST http://localhost:5000/api/auth/signup
+Content-Type: application/json
+
+{
+    "id":"naruto",
+    "name":"Naruto Uzumaki",
+    "email":"narutouzumaki@gmail.com",
+    "password":"123456789",
+    "roles":["ADMIN"]
+}
+###
+POST http://localhost:5000/api/auth/signup
+Content-Type: application/json
+
+{
+    "id":"sasukes",
+    "name":"Sasuke Uchiha",
+    "email":"sasukeuchiha@gmail.com",
+    "password":"123456789",
+    "roles":["PM"]
+}
+
+###
+POST http://localhost:5000/api/auth/signup
+Content-Type: application/json
+
+{
+    "id":"itachi",
+    "name":"Itachi Uchiha",
+    "email":"itachiuchiha@gmail.com",
+    "password":"123456789",
+    "roles":["ADMIN","PM"]
+}
+
+###
+POST http://localhost:5000/api/auth/signin
+Content-Type: application/json
+
+{
+    "id":"naruto",
+    "password":"123456789"
+}
+
+###
+GET http://localhost:5000/api/status
+
+
+###
+###
+###
+###
+###

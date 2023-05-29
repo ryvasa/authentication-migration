@@ -1,0 +1,23 @@
+GET http://localhost:3000/users/get
+
+###
+DELETE  http://localhost:3000/users/delete/10
+
+###
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "name":"ryan",
+    "email":"ry@gmail.com",
+    "password":"123",
+    "role":1
+}
+
+###
+PUT http://localhost:3000/users/updaterole/1
+Content-Type: application/json
+
+{
+	"role":3
+}
