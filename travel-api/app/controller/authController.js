@@ -1,12 +1,20 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const db = require("../models/index");
 const User = require("../models").User;
-const Op = db.Sequelize.Op;
 
 exports.signUp = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
+    if (!name || !email || !password || !role) {
+      const response = {
+        status_response: false,
+        message: "Please enter data name, email, password and role",
+        errors: "Inclomplete Data",
+        data: null,
+      };
+      res.status(400).send(response);
+      return;
+    }
     const user = await User.create({
       name,
       email,
@@ -35,8 +43,18 @@ exports.signUp = async (req, res) => {
   }
 };
 exports.signIn = async (req, res) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      const response = {
+        status_response: false,
+        message: "Please enter data email and password",
+        errors: "Inclomplete Data",
+        data: null,
+      };
+      res.status(400).send(response);
+      return;
+    }
     const user = await User.findOne({
       where: { email },
     });

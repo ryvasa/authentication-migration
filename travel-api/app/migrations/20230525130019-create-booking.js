@@ -15,10 +15,8 @@ module.exports = {
       ScheduleId: {
         type: Sequelize.INTEGER,
       },
-      order_date: {
-        type: Sequelize.DATE,
-      },
       price: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       createdAt: {

@@ -1,14 +1,10 @@
 const express = require("express");
 const { signUp, signIn } = require("../controller/authController");
 const { checkUserEmail } = require("../middleware/verifyUser");
-const {
-  verifyDataSignIn,
-  verifyDataSignUp,
-} = require("../middleware/verifySign");
 
 const router = express.Router();
 
-router.post("/auth/signup", verifyDataSignUp, checkUserEmail, signUp);
-router.post("/auth/signin", verifyDataSignIn, signIn);
+router.post("/auth/signup", checkUserEmail, signUp);
+router.post("/auth/signin", signIn);
 
 module.exports = router;

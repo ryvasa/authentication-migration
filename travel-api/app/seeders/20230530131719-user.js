@@ -1,4 +1,5 @@
 "use strict";
+const bcrypt = require("bcryptjs");
 const date = new Date();
 
 const year = date.getFullYear();
@@ -14,30 +15,45 @@ const datetime =
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const roles_data = [
+    const users_data = [
       {
-        id: 1,
-        name: "USER",
+        name: "Ryan",
+        email: "ryan@gmail.com",
+        password: bcrypt.hashSync("123", 8),
+        role: 3,
         createdAt: datetime,
         updatedAt: datetime,
       },
       {
-        id: 2,
-        name: "DRIVER",
+        name: "Oktavian",
+        email: "oktavian@gmail.com",
+        password: bcrypt.hashSync("123", 8),
+        role: 2,
         createdAt: datetime,
         updatedAt: datetime,
       },
       {
-        id: 3,
-        name: "ADMIN",
+        name: "saputra",
+        email: "saputra@gmail.com",
+        password: bcrypt.hashSync("123", 8),
+        role: 1,
+        createdAt: datetime,
+        updatedAt: datetime,
+      },
+      {
+        name: "driver",
+        email: "driver@gmail.com",
+        password: bcrypt.hashSync("123", 8),
+        role: 2,
         createdAt: datetime,
         updatedAt: datetime,
       },
     ];
 
-    await queryInterface.bulkInsert("Roles", roles_data);
+    await queryInterface.bulkInsert("Users", users_data);
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Roles", null, {});
+
+  async down(queryInterface, Sequelize) {
+    return queryInterface.bulkDelete("Users", null, {});
   },
 };

@@ -6,6 +6,9 @@ const db = require("./app/models");
 const authRoute = require("./app/router/authRoute");
 const userRoute = require("./app/router/userRoute");
 const busRoute = require("./app/router/busRoute");
+const routeRoute = require("./app/router/routeRoute");
+const scheduleRoute = require("./app/router/scheduleRoute");
+const bookingRoute = require("./app/router/bookingRoute");
 
 const app = express();
 
@@ -26,6 +29,9 @@ app.use(cookieParser());
 app.use(userRoute);
 app.use(authRoute);
 app.use(busRoute);
+app.use(routeRoute);
+app.use(scheduleRoute);
+app.use(bookingRoute);
 
 const port = process.env.PORT || 5000;
 

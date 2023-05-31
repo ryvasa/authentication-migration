@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "DriverId",
       });
       Schedule.belongsTo(models.Route, {
-        foreignKey: "RoteId",
+        foreignKey: "RouteId",
       });
       Schedule.hasMany(models.Booking, {
         foreignKey: "ScheduleId",

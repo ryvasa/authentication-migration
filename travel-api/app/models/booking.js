@@ -21,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       UserId: DataTypes.INTEGER,
       ScheduleId: DataTypes.INTEGER,
-      order_date: DataTypes.DATE,
       price: DataTypes.INTEGER,
     },
     {

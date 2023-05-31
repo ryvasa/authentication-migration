@@ -1,4 +1,5 @@
 "use strict";
+
 const date = new Date();
 
 const year = date.getFullYear();
@@ -14,30 +15,34 @@ const datetime =
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const roles_data = [
+    const buses_data = [
       {
-        id: 1,
-        name: "USER",
+        name: "Budiman",
+        capacity: 59,
+        number_plate: "B 7890 LM",
         createdAt: datetime,
         updatedAt: datetime,
       },
       {
-        id: 2,
-        name: "DRIVER",
+        name: "Karunia Bakti",
+        capacity: 59,
+        number_plate: "D 4560 JK",
         createdAt: datetime,
         updatedAt: datetime,
       },
       {
-        id: 3,
-        name: "ADMIN",
+        name: "Kurangtau",
+        capacity: 39,
+        number_plate: "Z 1230 EF",
         createdAt: datetime,
         updatedAt: datetime,
       },
     ];
 
-    await queryInterface.bulkInsert("Roles", roles_data);
+    await queryInterface.bulkInsert("Buses", buses_data);
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Roles", null, {});
+
+  async down(queryInterface, Sequelize) {
+    return queryInterface.bulkDelete("Buses", null, {});
   },
 };

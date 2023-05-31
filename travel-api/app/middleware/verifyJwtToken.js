@@ -9,8 +9,8 @@ exports.verifyToken = (req, res, next) => {
     const response = {
       status_response: false,
       message: "Invalid token format",
-      data: null,
       errors: "Error",
+      data: null,
     };
     res.status(500).send(response);
     return;
@@ -21,8 +21,8 @@ exports.verifyToken = (req, res, next) => {
     const response = {
       status_response: false,
       message: "No token provided",
-      data: null,
       errors: "Error",
+      data: null,
     };
     res.status(403).send(response);
     return;
@@ -32,8 +32,8 @@ exports.verifyToken = (req, res, next) => {
       const response = {
         status_response: false,
         message: "Token not valid",
-        data: null,
         errors: error.message,
+        data: null,
       };
       res.status(500).send(response);
       return;
@@ -53,8 +53,8 @@ exports.isAdmin = async (req, res, next) => {
     const response = {
       status_response: false,
       message: "User not found",
-      data: null,
       errors: "Data Not Found",
+      data: null,
     };
     res.status(404).send(response);
     return;
@@ -63,8 +63,8 @@ exports.isAdmin = async (req, res, next) => {
     const response = {
       status_response: false,
       message: "Only admin can access",
-      data: null,
       errors: "Error",
+      data: null,
     };
     res.status(403).send(response);
     return;

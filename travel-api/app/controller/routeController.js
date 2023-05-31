@@ -1,13 +1,13 @@
-const Bus = require("../models").Bus;
+const Route = require("../models").Route;
 
-exports.findAllBuses = async (req, res) => {
+exports.findAllRoutes = async (req, res) => {
   try {
-    const buses = await Bus.findAll();
+    const routes = await Route.findAll();
     const response = {
       status_response: true,
-      message: buses.length + " buses data",
+      message: routes.length + " routes data",
       errors: null,
-      data: buses,
+      data: routes,
     };
     res.status(200).send(response);
   } catch (error) {
@@ -21,15 +21,15 @@ exports.findAllBuses = async (req, res) => {
   }
 };
 
-exports.addBus = async (req, res) => {
+exports.addRoute = async (req, res) => {
   try {
-    const { name, capacity, numberPlate } = req.body;
-    const bus = await Bus.create({ name, capacity, number_plate: numberPlate });
+    const { origin, destination, name, distance } = req.body;
+    const route = await Route.create({ origin, destination, name, distance });
     const response = {
       status_response: true,
-      message: "Data bus created",
+      message: "Data route created",
       errors: null,
-      data: bus,
+      data: route,
     };
     res.status(200).send(response);
   } catch (error) {
@@ -43,16 +43,16 @@ exports.addBus = async (req, res) => {
   }
 };
 
-exports.findOneBus = async (req, res) => {
+exports.findOneRoute = async (req, res) => {
   const { id } = req.params;
   try {
-    const bus = await Bus.findOne({
+    const route = await Route.findOne({
       where: { id },
     });
-    if (!bus) {
+    if (!route) {
       const response = {
         status_response: false,
-        message: "Bus not found",
+        message: "Route not found",
         errors: "Error",
         data: null,
       };
@@ -61,9 +61,9 @@ exports.findOneBus = async (req, res) => {
     }
     const response = {
       status_response: true,
-      message: bus.length + " bus data",
+      message: route.length + " route data",
       errors: null,
-      data: bus,
+      data: route,
     };
     res.status(200).send(response);
   } catch (error) {
@@ -77,33 +77,35 @@ exports.findOneBus = async (req, res) => {
   }
 };
 
-exports.updateBus = async (req, res) => {
+exports.updateRoute = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, capacity, numberPlate } = req.body;
-    const bus = await Bus.findOne({
+    const { origin, destination, name, distance } = req.body;
+
+    const route = await Route.findOne({
       where: { id },
     });
-    if (!bus) {
+    if (!route) {
       const response = {
         status_response: false,
-        message: "Bus not found",
+        message: "Route not found",
         errors: "Error",
         data: null,
       };
       res.status(400).send(response);
       return;
     }
-    bus.set({
-      name: name || bus.name,
-      number_plate: numberPlate || bus.number_plate,
-      capacity: capacity || bus.capacity,
+    route.set({
+      name: name || route.name,
+      origin: origin || route.origin,
+      destination: destination || route.destination,
+      distance: distance || route.distance,
     });
     const response = {
       status_response: true,
-      message: bus.length + " bus data",
+      message: route.length + " route data",
       errors: null,
-      data: bus,
+      data: route,
     };
     res.status(200).send(response);
   } catch (error) {
@@ -117,28 +119,28 @@ exports.updateBus = async (req, res) => {
   }
 };
 
-exports.deleteBus = async (req, res) => {
+exports.deleteRoute = async (req, res) => {
   try {
     const { id } = req.params;
-    const bus = await Bus.findOne({
+    const route = await Route.findOne({
       where: { id },
     });
-    if (!bus) {
+    if (!route) {
       const response = {
         status_response: false,
-        message: "Bus not found",
+        message: "Route not found",
         errors: "Error",
         data: null,
       };
       res.status(400).send(response);
       return;
     }
-    await Bus.destroy({
+    await Route.destroy({
       where: { id },
     });
     const response = {
       status_response: true,
-      message: "Data bus has been deleted",
+      message: "Data Route has been deleted",
       errors: null,
       data: null,
     };

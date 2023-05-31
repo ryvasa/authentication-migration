@@ -1,13 +1,42 @@
-const Bus = require("../models").Bus;
+const Schedule = require("../models").Schedule;
+const User = require("../models").User;
+const Booking = require("../models").Booking;
 
-exports.findAllBuses = async (req, res) => {
+exports.addBooking = async (req, res) => {
   try {
-    const buses = await Bus.findAll();
+    const id = req.userId;
+    const { scheduleId, price } = req.body;
+    const user = await User.findOne({ where: { id } });
+    if (!user) {
+      const response = {
+        status_response: false,
+        message: "User not found",
+        errors: "Error",
+        data: null,
+      };
+      res.status(400).send(response);
+      return;
+    }
+    if (user.role !== 1) {
+      const response = {
+        status_response: false,
+        message: "Only User can order",
+        errors: "Error",
+        data: null,
+      };
+      res.status(400).send(response);
+      return;
+    }
+    const booking = await Booking.create({
+      UserId: id,
+      ScheduleId: scheduleId,
+      price,
+    });
     const response = {
       status_response: true,
-      message: buses.length + " buses data",
+      message: "Data booking created",
       errors: null,
-      data: buses,
+      data: booking,
     };
     res.status(200).send(response);
   } catch (error) {
@@ -21,17 +50,16 @@ exports.findAllBuses = async (req, res) => {
   }
 };
 
-exports.addBus = async (req, res) => {
+exports.findAllBooking = async (req, res) => {
   try {
-    const { name, capacity, numberPlate } = req.body;
-    const bus = await Bus.create({ name, capacity, number_plate: numberPlate });
+    const bookings = await Booking.findAll();
     const response = {
       status_response: true,
-      message: "Data bus created",
+      message: `${bookings.length} bookings data`,
       errors: null,
-      data: bus,
+      data: bookings,
     };
-    res.status(200).send(response);
+    res.status(400).send(response);
   } catch (error) {
     const response = {
       status_response: false,
@@ -43,16 +71,16 @@ exports.addBus = async (req, res) => {
   }
 };
 
-exports.findOneBus = async (req, res) => {
+exports.findOneBooking = async (req, res) => {
   const { id } = req.params;
   try {
-    const bus = await Bus.findOne({
+    const booking = await Booking.findOne({
       where: { id },
     });
-    if (!bus) {
+    if (!booking) {
       const response = {
         status_response: false,
-        message: "Bus not found",
+        message: "Booking not found",
         errors: "Error",
         data: null,
       };
@@ -61,9 +89,9 @@ exports.findOneBus = async (req, res) => {
     }
     const response = {
       status_response: true,
-      message: bus.length + " bus data",
+      message: `Found booking data`,
       errors: null,
-      data: bus,
+      data: booking,
     };
     res.status(200).send(response);
   } catch (error) {
@@ -77,33 +105,35 @@ exports.findOneBus = async (req, res) => {
   }
 };
 
-exports.updateBus = async (req, res) => {
+exports.updateBooking = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, capacity, numberPlate } = req.body;
-    const bus = await Bus.findOne({
+    const { scheduleId, price } = req.body;
+
+    const booking = await Booking.findOne({
       where: { id },
     });
-    if (!bus) {
+    if (!booking) {
       const response = {
         status_response: false,
-        message: "Bus not found",
+        message: "Booking not found",
         errors: "Error",
         data: null,
       };
       res.status(400).send(response);
       return;
     }
-    bus.set({
-      name: name || bus.name,
-      number_plate: numberPlate || bus.number_plate,
-      capacity: capacity || bus.capacity,
+    booking.set({
+      ScheduleId: scheduleId || booking.ScheduleId,
+      price: price || booking.price,
     });
+    await booking.save();
+
     const response = {
       status_response: true,
-      message: bus.length + " bus data",
+      message: "Found booking data",
       errors: null,
-      data: bus,
+      data: booking,
     };
     res.status(200).send(response);
   } catch (error) {
@@ -117,28 +147,28 @@ exports.updateBus = async (req, res) => {
   }
 };
 
-exports.deleteBus = async (req, res) => {
+exports.deleteBooking = async (req, res) => {
   try {
     const { id } = req.params;
-    const bus = await Bus.findOne({
+    const booking = await Booking.findOne({
       where: { id },
     });
-    if (!bus) {
+    if (!booking) {
       const response = {
         status_response: false,
-        message: "Bus not found",
+        message: "Booking not found",
         errors: "Error",
         data: null,
       };
       res.status(400).send(response);
       return;
     }
-    await Bus.destroy({
+    await Booking.destroy({
       where: { id },
     });
     const response = {
       status_response: true,
-      message: "Data bus has been deleted",
+      message: "Data booking has been deleted",
       errors: null,
       data: null,
     };

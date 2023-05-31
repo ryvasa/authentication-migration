@@ -10,21 +10,27 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       RouteId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       BusId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       DriverId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       travel_date: {
+        allowNull: false,
         type: Sequelize.DATEONLY,
       },
       departure_time: {
+        allowNull: false,
         type: Sequelize.TIME,
       },
       arrival_time: {
+        allowNull: false,
         type: Sequelize.TIME,
       },
       createdAt: {

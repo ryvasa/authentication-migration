@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Bus.init(
     {
       name: DataTypes.STRING,
+      number_plate: DataTypes.STRING,
       capacity: DataTypes.INTEGER,
     },
     {

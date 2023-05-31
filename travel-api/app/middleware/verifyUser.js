@@ -10,8 +10,8 @@ exports.checkUserEmail = async (req, res, next) => {
       const response = {
         status_response: false,
         message: `Email already in use`,
-        data: null,
         errors: "Duplicate Data",
+        data: null,
       };
       res.status(400).send(response);
       return;
@@ -21,8 +21,8 @@ exports.checkUserEmail = async (req, res, next) => {
     const response = {
       status_response: false,
       message: error.message,
-      data: null,
       errors: error.message,
+      data: null,
     };
     res.status(500).send(response);
   }
@@ -39,8 +39,8 @@ exports.checkUserId = async (req, res, next) => {
       const response = {
         status_response: false,
         message: "User not found",
-        data: null,
         errors: "Data Not Found",
+        data: null,
       };
       res.status(404).send(response);
       return;
@@ -50,8 +50,8 @@ exports.checkUserId = async (req, res, next) => {
     const response = {
       status_response: false,
       message: error.message,
-      data: null,
       errors: error.message,
+      data: null,
     };
     res.status(500).send(response);
   }
